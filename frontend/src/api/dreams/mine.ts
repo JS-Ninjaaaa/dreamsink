@@ -86,3 +86,11 @@ export const deleteMyDream = async (dreamId: number) => {
 
   return;
 };
+// 編集用
+export const editMyDream = async (dreamId: number) => {
+  const token = sessionStorage.getItem("token");
+  if (!token) {
+    throw new Error("ログインしていません");
+  }
+  // ここで夢を取得して
+};
