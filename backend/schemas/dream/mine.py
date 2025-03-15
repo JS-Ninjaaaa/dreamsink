@@ -7,6 +7,8 @@ from pydantic import (
     field_validator,
 )
 
+from schemas.hashtag import HashtagResponse
+
 
 class MyDreamResponse(BaseModel):
     id: int
@@ -14,6 +16,7 @@ class MyDreamResponse(BaseModel):
     content: str
     is_public: bool
     likes: int
+    hashtags: list[HashtagResponse]
     created_at: datetime
     updated_at: datetime
 
@@ -40,6 +43,8 @@ class GetMyDreamsParams(BaseModel):
 class CreateMyDreamRequest(BaseModel):
     content: str
     is_public: bool = False
+    # TODO: コメントアウトを外す
+    # hashtags: list[str]
 
     @field_validator("content")
     def validate_content(cls, content: str) -> str:

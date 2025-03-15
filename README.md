@@ -53,19 +53,32 @@
 ```mermaid
 erDiagram
     USERS {
-        UUID id PK "Primary Key"
+        UUID id PK "ユーザーID"
         VARCHAR email "メールアドレス"
         TIMESTAMP created_at "作成日時"
         TIMESTAMP updated_at "更新日時"
     }
     DREAMS {
-        INTEGER id PK "Primary Key"
-        UUID user_id FK "Foreign Key to USERS"
+        INTEGER id PK "夢ID"
+        UUID user_id FK "ユーザーID"
         TEXT content "内容"
         BOOLEAN is_public "公開フラグ"
         INTEGER likes "いいね数"
         TIMESTAMP created_at "作成日時"
         TIMESTAMP updated_at "更新日時"
     }
+    HASHTAGS {
+        INTEGER id PK "ハッシュタグID"
+        VARCHAR name "ハッシュタグ名"
+        TIMESTAMP created_at "作成日時"
+        TIMESTAMP updated_at "更新日時"
+    }
+    DREAM_HASHTAGS {
+		    INTEGER id PK "中間テーブルID"
+        INTEGER dream_id FK "夢ID"
+        INTEGER hashtag_id FK "ハッシュタグID"
+    }
     USERS ||--o{ DREAMS : "has many"
+    DREAMS ||--o{ DREAM_HASHTAGS : "has many"
+    HASHTAGS ||--o{ DREAM_HASHTAGS : "has many"
 ```

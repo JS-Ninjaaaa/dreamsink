@@ -12,6 +12,7 @@ class Dream:
         content: str,
         is_public: bool,
         likes: int,
+        hashtags: list[dict],
         created_at: str,
         updated_at: str,
     ):
@@ -20,6 +21,7 @@ class Dream:
         self.content = content
         self.is_public = is_public
         self.likes = likes
+        self.hashtags = hashtags
         self.created_at = created_at
         self.updated_at = updated_at
 
@@ -30,7 +32,7 @@ class Dream:
 
         response = (
             supabase.table("dreams")
-            .select("*")
+            .select("*, hashtags(*)")
             .eq("user_id", user_id)
             # ソート条件を受け取って適用
             .order(sort, desc=True)
@@ -74,7 +76,7 @@ class Dream:
         supabase: Client = get_supabase_client()
         response = (
             supabase.table("dreams")
-            .select("*")
+            .select("*", "hashtags(*)")
             .eq("is_public", True)
             # id順で取得
             .order("id", desc=True)

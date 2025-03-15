@@ -301,7 +301,13 @@ components:
         hashtags:
           type: array
           items:
-            type: string
+            type: object
+            properties:
+              id:
+                type: string
+                format: integer
+              name:
+                type: string
         created_at:
           type: string
           format: date-time
